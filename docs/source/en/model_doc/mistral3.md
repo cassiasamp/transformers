@@ -19,7 +19,7 @@ rendered properly in your Markdown viewer.
     </div>
 </div>
 
-# Mistral3
+# Mistral 3
 
 [Mistral 3](https://mistral.ai/news/mistral-small-3) is a latency optimized model with a lot fewer layers to reduce the time per forward pass. This model adds vision understanding and supports long context lengths of up to 128K tokens without compromising performance.
 You can find the original Mistral 3 checkpoints under the [Mistral AI](https://huggingface.co/mistralai/models?search=mistral-small-3) organization.
@@ -101,32 +101,10 @@ decoded_output
 </hfoption>
 </hfoptions>
 
-## Notes
+## Notes 
 
-- Mistral3 model can be used to generate text without providing any image input, and this model version also supports batched text-images inputs with different number of images for each text. Check [Text-only generation](#text-only-generation), [Batched image and text inputs](#batched-image-and-text-inputs) and [Batched multi-image input and quantization with BitsAndBytes](#batched-multi-image-input-and-quantization-with-bitsandbytes) examples.
-
-
-## Mistral3Config
-
-[[autodoc]] Mistral3Config
-
-## MistralCommonTokenizer
-
-[[autodoc]] MistralCommonTokenizer
-
-## Mistral3Model
-
-[[autodoc]] Mistral3Model
-
-## Mistral3ForConditionalGeneration
-
-[[autodoc]] Mistral3ForConditionalGeneration
-    - forward
-
-### Text-only generation
-This example shows how to generate text using the Mistral3 model without providing any image input.
-
-````py
+- Mistral 3 supports text-only generation. 
+```py 
 from transformers import AutoProcessor, AutoModelForImageTextToText
 import torch
 
@@ -150,21 +128,19 @@ decoded_output = processor.batch_decode(generate_ids[:, inputs["input_ids"].shap
 
 print(decoded_output)
 "1. À plus tard!
-2. Salut, à plus!
-3. À toute!
-4. À la prochaine!
-5. Je me casse, à plus!
+ 2. Salut, à plus!
+ 3. À toute!
+ 4. À la prochaine!
+ 5. Je me casse, à plus!
 
 ```
  /\_/\
 ( o.o )
  > ^ <
 ```"
-````
+```
 
-### Batched image and text inputs
-This example shows how to generate text from batched image and text inputs using Mistral3 model.
-
+- Mistral 3 accepts batched image and text inputs. 
 ```py
 from transformers import AutoProcessor, AutoModelForImageTextToText
 import torch
@@ -206,10 +182,9 @@ messages = [
 , "Describe this imageThe image depicts a vibrant street scene in what appears to be a Chinatown district. The focal point is a traditional Chinese"]
 ```
 
-### Batched multi-image input and quantization with BitsAndBytes
-This example shows how to generate text from batched text-images inputs with different number of images for each text using Mistral3 model. It also shows how to use `BitsAndBytes` to load the model in 4bit quantization.
+- Mistral 3 also supported batched image and text inputs with a different number of images for each text. The example below quantizes the model with bitsandbytes. 
 
-```py
+```py 
 from transformers import AutoProcessor, AutoModelForImageTextToText, BitsAndBytesConfig
 import torch
 
@@ -252,5 +227,19 @@ messages = [
 ["Write a haiku for this imageSure, here is a haiku inspired by the image:\n\nCalm lake's wooden path\nSilent forest stands guard\n", "These images depict two different landmarks. Can you identify them? Certainly! The images depict two iconic landmarks:\n\n1. The first image shows the Statue of Liberty in New York City."]
 ```
 
-## Resources
-The original code to Mistral3 can be found in [vllm-project github](https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/pixtral.py) and [mistralai github](https://github.com/mistralai/mistral-common).
+## Mistral3Config
+
+[[autodoc]] Mistral3Config
+
+## MistralCommonTokenizer
+
+[[autodoc]] MistralCommonTokenizer
+
+## Mistral3Model
+
+[[autodoc]] Mistral3Model
+
+## Mistral3ForConditionalGeneration
+
+[[autodoc]] Mistral3ForConditionalGeneration
+    - forward
