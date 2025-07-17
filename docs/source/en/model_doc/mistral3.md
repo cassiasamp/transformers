@@ -16,21 +16,21 @@ rendered properly in your Markdown viewer.
 <div style="float: right;">
     <div class="flex flex-wrap space-x-1">
            <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-DE3412?style=flat&amp;logo=pytorch&amp;logoColor=white">
-            <img alt="TensorFlow" src="https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&amp;logo=tensorflow&amp;logoColor=white">
     </div>
 </div>
 
 # Mistral3
 
-Mistral3, also known as Mistral Small 3.1 (2503) is an upgraded version of the Mistral Small 3 (2501) model. The main differences are that Mistral Small 3.1 can process images because it has vision understanding, and also that it can handle longer documents or conversations due to having a longer context capability up to 128k tokens. 
-This model is ideal for conversational agents, local inferencing, programming and math reasoning, document and visual understanting.
+[Mistral 3](https://mistral.ai/news/mistral-small-3) is a latency optimized model with a lot fewer layers to reduce the time per forward pass. This model adds vision understanding and supports long context lengths of up to 128K tokens without compromising performance.
+You can find the original Mistral 3 checkpoints under the [Mistral AI](https://huggingface.co/mistralai/models?search=mistral-small-3) organization.
 
 This model was contributed by [cyrilvallez](https://huggingface.co/cyrilvallez) and [yonigozlan](https://huggingface.co/yonigozlan).
 
 > [!TIP]
+> This model was contributed by [cyrilvallez](https://huggingface.co/cyrilvallez) and [yonigozlan](https://huggingface.co/yonigozlan).
 > Click on the Mistral3 models in the right sidebar for more examples of how to apply Mistral3 to different tasks.
 
-The example below demonstrates how to inference `[image-text-to-text]` with [`Pipeline`], [`AutoModel`], and from the command line. Inference can be made on multiple images, batch images, or on a single image.
+The example below demonstrates how to generate text for an image with [`Pipeline`] and the [`AutoModel`] class.
 
 <hfoptions id="usage">
 <hfoption id="Pipeline">
@@ -52,7 +52,8 @@ messages = [
 pipeline = pipeline(
     task="image-text-to-text", 
     model="mistralai/Mistral-Small-3.1-24B-Instruct-2503", 
-    torch_dtype=torch.bfloat16
+    torch_dtype=torch.bfloat16,
+    device=0
 )
 outputs = pipeline(text=messages, max_new_tokens=50, return_full_text=False)
 
